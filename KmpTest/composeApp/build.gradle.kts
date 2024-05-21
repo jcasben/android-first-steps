@@ -44,6 +44,8 @@ kotlin {
             implementation(libs.androidx.activity.compose)
         }
         commonMain.dependencies {
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.transitions)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
