@@ -2,4 +2,25 @@
     <string name="app_name">IMCCalculator</string>
     <string name="male">Hombre</string>
     <string name="female">Mujer</string>
+    <string name="height">Altura</string>
+    <string name="weight">Peso</string>
+    <string name="age">Edad</string>
+    <string name="calculate">Calcular</string>
+
+    <string name="recalculate">Recalcular</string>
+    <string name="result">Tu Resultado</string>
+
+    <string name="error">ERROR</string>
+
+    <string name="title_low_weight">Bajo peso</string>
+    <string name="description_low_weight">Estás por debajo de lo óptimo para tu peso y altura</string>
+
+    <string name="title_normal">Normal</string>
+    <string name="description_normal">Estás en lo óptimo para tu peso y altura</string>
+
+    <string name="title_over_weight">Sobrepeso</string>
+    <string name="description_over_weight">Estás por encima de lo óptimo para tu peso y altura</string>
+
+    <string name="title_obesity">Obesidad</string>
+    <string name="description_obesity">Estás por muy por encima de lo óptimo para tu peso y altura</string>
 </resources>
