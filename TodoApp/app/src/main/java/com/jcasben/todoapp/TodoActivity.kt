@@ -11,6 +11,8 @@ class TodoActivity : AppCompatActivity() {
 
     private lateinit var rvCategories: RecyclerView
     private lateinit var categoriesAdapter: CategoriesAdapter
+    private lateinit var rvTasks: RecyclerView
+
     private val categories = listOf(
         TaskCategory.Personal,
         TaskCategory.Uni,
@@ -26,6 +28,7 @@ class TodoActivity : AppCompatActivity() {
 
     private fun initComponents() {
         rvCategories = findViewById(R.id.rvCategories)
+        rvTasks = findViewById(R.id.rvTasks)
     }
 
     private fun initUI() {
