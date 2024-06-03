@@ -3,4 +3,9 @@
     <string name="todo_title">Your TODO\'s</string>
     <string name="todo_categories">Categories</string>
     <string name="todo_tasks">Tasks</string>
+    <string name="todo_dialog_hint">Add a task</string>
+    <string name="todo_dialog_uni_category">Uni</string>
+    <string name="todo_dialog_personal_category">Personal</string>
+    <string name="todo_dialog_other_category">Other</string>
+    <string name="todo_dialog_add_task">Create task</string>
 </resources>
