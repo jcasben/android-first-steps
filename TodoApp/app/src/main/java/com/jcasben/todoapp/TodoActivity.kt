@@ -33,20 +33,6 @@ class TodoActivity : AppCompatActivity() {
         Task("Test coding", TaskCategory.Personal),
         Task("Test Other", TaskCategory.Other),
         Task("Test Uni", TaskCategory.Uni),
-        Task("Test Uni", TaskCategory.Uni),
-        Task("Test Uni", TaskCategory.Uni),
-        Task("Test Uni", TaskCategory.Uni),
-        Task("Test Uni", TaskCategory.Uni),
-        Task("Test Uni", TaskCategory.Uni),
-        Task("Test Uni", TaskCategory.Uni),
-        Task("Test Uni", TaskCategory.Uni),
-        Task("Test Uni", TaskCategory.Uni),
-        Task("Test Uni", TaskCategory.Uni),
-        Task("Test Uni", TaskCategory.Uni),
-        Task("Test Uni", TaskCategory.Uni),
-        Task("Test Uni", TaskCategory.Uni),
-        Task("Test Uni", TaskCategory.Uni),
-        Task("Test Uni", TaskCategory.Uni),
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,7 +81,7 @@ class TodoActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
-        categoriesAdapter = CategoriesAdapter(categories)
+        categoriesAdapter = CategoriesAdapter(categories) { position -> updateCategories(position) }
         rvCategories.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvCategories.adapter = categoriesAdapter
@@ -110,7 +96,16 @@ class TodoActivity : AppCompatActivity() {
         updateTasks()
     }
 
+    private fun updateCategories(position: Int) {
+        categories[position].isSelected = !categories[position].isSelected
+        categoriesAdapter.notifyItemChanged(position)
+        updateTasks()
+    }
+
     private fun updateTasks() {
+        val selectedCategories: List<TaskCategory> = categories.filter { it.isSelected }
+        val newTask = tasks.filter { selectedCategories.contains(it.category) }
+        tasksAdapter.tasks = newTask
         tasksAdapter.notifyDataSetChanged()
     }
 }
