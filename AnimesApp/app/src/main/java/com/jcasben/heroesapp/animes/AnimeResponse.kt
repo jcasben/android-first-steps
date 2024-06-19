@@ -6,5 +6,5 @@ import com.google.gson.annotations.SerializedName
 data class Anime(
     @Expose @SerializedName("title") val title: String,
     @Expose @SerializedName("picture_url") val picUrl: String,
-    @Expose @SerializedName("myanimelist_id") val id: Int
+    @Expose @SerializedName("myanimelist_id") val id: String
 )

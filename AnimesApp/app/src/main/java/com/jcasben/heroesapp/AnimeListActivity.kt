@@ -78,7 +78,7 @@ class AnimeListActivity : AppCompatActivity() {
             .build()
     }
 
-    private fun navigateToDetail(id: Int) {
+    private fun navigateToDetail(id: String) {
         val intent = Intent(this,DetailsAnimeActivity::class.java)
         intent.putExtra(DetailsAnimeActivity.EXTRA_ID, id)
         startActivity(intent)

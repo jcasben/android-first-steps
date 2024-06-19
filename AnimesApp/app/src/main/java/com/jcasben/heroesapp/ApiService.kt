@@ -21,5 +21,5 @@ interface ApiService {
         "x-rapidapi-key:573d782564msh35f31641a143d7dp1b7331jsnda4cd36d3ee2"
     )
     @GET("/v2/anime/{id}")
-    suspend fun getAnimeDetails(@Path("id") animeId: Int): Response<AnimeDetailResponse>
+    suspend fun getAnimeDetails(@Path("id") animeId: String): Response<AnimeDetailResponse>
 }

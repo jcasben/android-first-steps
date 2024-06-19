@@ -24,11 +24,11 @@ class DetailsAnimeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsAnimeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val id: Int = intent.getStringExtra(EXTRA_ID).orEmpty().toInt()
+        val id: String = intent.getStringExtra(EXTRA_ID).orEmpty()
         getAnimeInfo(id)
     }
 
-    private fun getAnimeInfo(id: Int) {
+    private fun getAnimeInfo(id: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val animeDetail = getRetrofit().create(ApiService::class.java).getAnimeDetails(id)
             if (animeDetail.body() != null) {

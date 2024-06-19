@@ -7,7 +7,7 @@ import com.jcasben.heroesapp.R
 
 class AnimeAdapter(
     var animeList: List<Anime> = emptyList(),
-    private val onItemSelected: (Int) -> Unit
+    private val onItemSelected: (String) -> Unit
 ) :
     RecyclerView.Adapter<AnimeViewHolder>() {
 
