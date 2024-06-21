@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.Locale
 
 class DetailsAnimeActivity : AppCompatActivity() {
 
@@ -42,15 +43,51 @@ class DetailsAnimeActivity : AppCompatActivity() {
     }
 
     private fun createScreen(anime: AnimeDetailResponse) {
-        binding.tvOriginalName.text = anime.originalName
-        binding.tvEnglishName.text = anime.engName
-        Picasso.get().load(anime.picUrl).into(binding.ivAnimeImage)
+        binding.tvOriginalName.text = anime.data.originalName
+        binding.tvEnglishName.text = anime.data.engName
+        Picasso.get().load(anime.data.image.jpgImage.url).into(binding.ivAnimeImage)
+        binding.tvEpisodes.text = String.format(
+            "%s %s",
+            getString(R.string.anime_details_episodes),
+            anime.data.episodes
+        )
+        binding.tvScore.text = String.format(
+            Locale.getDefault(),
+            "%s %.2f",
+            getString(R.string.anime_details_score),
+            anime.data.score
+        )
+        binding.tvRank.text = String.format(
+            Locale.getDefault(),
+            "%s %d",
+            getString(R.string.anime_details_rank),
+            anime.data.rank
+        )
+        binding.tvPopularity.text = String.format(
+            Locale.getDefault(),
+            "%s %d",
+            getString(R.string.anime_details_popularity),
+            anime.data.popularity
+        )
+        var genres: String = ""
+        for (g in anime.data.genres) {
+            if (genres.isBlank()) {
+                genres += g.name
+            }
+            genres = String.format("%s,%s", genres, g.name)
+        }
+        binding.tvGenres.text = String.format(
+            Locale.getDefault(),
+            "%s %s",
+            getString(R.string.anime_details_genres),
+            genres
+        )
     }
 
     private fun getRetrofit(): Retrofit {
         return Retrofit
             .Builder()
-            .baseUrl("https://myanimelist.p.rapidapi.com/v2/")
+            .baseUrl("https://api.jikan.moe/v4/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

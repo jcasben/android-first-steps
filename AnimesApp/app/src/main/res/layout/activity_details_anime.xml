@@ -5,28 +5,27 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".animes.details.DetailsAnimeActivity"
-    android:padding="8dp">
+    android:padding="8dp"
+    tools:context=".animes.details.DetailsAnimeActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/llAnimeHeader"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:orientation="horizontal"
-        >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/ivAnimeImage"
             android:layout_width="175dp"
             android:layout_height="match_parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:scaleType="fitXY"/>
-        
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -37,24 +36,75 @@
                 android:id="@+id/tvOriginalName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Original Name"
-                android:textStyle="bold"
+                android:paddingBottom="8dp"
                 android:textSize="20sp"
-                android:paddingBottom="8dp"/>
+                android:textStyle="bold"
+                tools:text="Original Name" />
 
             <TextView
                 android:id="@+id/tvEnglishName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="English Name"
-                android:textStyle="bold"
+                android:paddingBottom="8dp"
                 android:textColor="#FF434343"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="English Name" />
 
+            <TextView
+                android:id="@+id/tvEpisodes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="4dp"
+                android:textSize="16sp"
+                tools:text="@string/anime_details_episodes" />
+
+            <TextView
+                android:id="@+id/tvScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="4dp"
+                android:textSize="16sp"
+                tools:text="@string/anime_details_score" />
+
+            <TextView
+                android:id="@+id/tvRank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="4dp"
+                android:textSize="16sp"
+                tools:text="@string/anime_details_rank" />
+
+            <TextView
+                android:id="@+id/tvPopularity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="4dp"
+                android:textSize="16sp"
+                tools:text="@string/anime_details_popularity" />
+
+            <TextView
+                android:id="@+id/tvGenres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="4dp"
+                android:textSize="15sp"
+                tools:text="@string/anime_details_genres"
+                android:isScrollContainer="true"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Synopsis"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llAnimeHeader"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingVertical="16sp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
