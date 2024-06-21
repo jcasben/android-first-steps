@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jcasben.heroesapp.databinding.ActivityAnimeListBinding
 import com.jcasben.heroesapp.animes.Anime
 import com.jcasben.heroesapp.animes.AnimeAdapter
+import com.jcasben.heroesapp.animes.AnimeResponse
 import com.jcasben.heroesapp.animes.details.DetailsAnimeActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -52,15 +53,15 @@ class AnimeListActivity : AppCompatActivity() {
     private fun searchByName(query: String) {
         binding.progressBar.isVisible = true
         CoroutineScope(Dispatchers.IO).launch {
-            val response: Response<List<Anime>> = retrofit.create(ApiService::class.java).getAnimes(query)
+            val response: Response<AnimeResponse> = retrofit.create(ApiService::class.java).getAnimes(query)
             if (response.isSuccessful) {
                 Log.i("test", "va bien")
-                val res: List<Anime>? = response.body()
+                val res: AnimeResponse? = response.body()
                 if (res != null) {
                     Log.i("test", res.toString())
                     runOnUiThread {
                         binding.progressBar.isVisible = false
-                        animeAdapter.updateList(res)
+                        animeAdapter.updateList(res.animes)
                     }
                 }
             } else {
@@ -73,7 +74,7 @@ class AnimeListActivity : AppCompatActivity() {
     private fun getRetrofit(): Retrofit {
         return Retrofit
             .Builder()
-            .baseUrl("https://myanimelist.p.rapidapi.com/v2/")
+            .baseUrl("https://api.jikan.moe/v4/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
