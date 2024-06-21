@@ -10,9 +10,8 @@ class AnimeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private var binding = ItemAnimeBinding.bind(view)
 
     fun bind(animeItem: Anime, onItemSelected: (String) -> Unit) {
-
         binding.tvAnimeName.text = animeItem.title
-        Picasso.get().load(animeItem.picUrl).into(binding.ivAnime)
+        Picasso.get().load(animeItem.image.jpgImage.url).into(binding.ivAnime)
         binding.root.setOnClickListener { onItemSelected(animeItem.id) }
     }
 }
