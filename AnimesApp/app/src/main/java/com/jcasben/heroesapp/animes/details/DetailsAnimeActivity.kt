@@ -82,6 +82,7 @@ class DetailsAnimeActivity : AppCompatActivity() {
             getString(R.string.anime_details_genres),
             genres
         )
+        binding.tvSynopsis.text = anime.data.description
     }
 
     private fun getRetrofit(): Retrofit {

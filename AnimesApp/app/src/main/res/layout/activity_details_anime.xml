@@ -87,24 +87,32 @@
                 android:id="@+id/tvGenres"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:isScrollContainer="true"
                 android:paddingVertical="4dp"
                 android:textSize="15sp"
-                tools:text="@string/anime_details_genres"
-                android:isScrollContainer="true"/>
+                tools:text="@string/anime_details_genres" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <TextView
+        android:id="@+id/titleSynopsis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Synopsis"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/llAnimeHeader"
+        android:paddingVertical="8sp"
+        android:text="Synopsis"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:paddingVertical="16sp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llAnimeHeader" />
 
+    <TextView
+        android:id="@+id/tvSynopsis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleSynopsis" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
