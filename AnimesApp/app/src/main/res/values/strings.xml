@@ -5,4 +5,7 @@
     <string name="anime_details_rank">Rank:</string>
     <string name="anime_details_popularity">Popularity:</string>
     <string name="anime_details_genres">Genres:</string>
+    <string name="anime_details_status">Status:</string>
+    <string name="anime_details_type">Type:</string>
+    <string name="anime_details_synopsis">Synopsis</string>
 </resources>

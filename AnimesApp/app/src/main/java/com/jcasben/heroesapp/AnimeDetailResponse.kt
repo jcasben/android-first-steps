@@ -15,7 +15,9 @@ data class DetailResponse(
     @SerializedName("score") val score: Double,
     @SerializedName("rank") val rank: Int,
     @SerializedName("popularity") val popularity: Int,
-    @SerializedName("genres") val genres: List<AnimeGenre>
+    @SerializedName("genres") val genres: List<AnimeGenre>,
+    @SerializedName("status") val status: String,
+    @SerializedName("type") val type: String
 )
 
 data class AnimeGenre(

@@ -46,6 +46,11 @@ class DetailsAnimeActivity : AppCompatActivity() {
         binding.tvOriginalName.text = anime.data.originalName
         binding.tvEnglishName.text = anime.data.engName
         Picasso.get().load(anime.data.image.jpgImage.url).into(binding.ivAnimeImage)
+        binding.tvType.text = String.format(
+            "%s %s",
+            getString(R.string.anime_details_type),
+            anime.data.type
+        )
         binding.tvEpisodes.text = String.format(
             "%s %s",
             getString(R.string.anime_details_episodes),
@@ -59,22 +64,26 @@ class DetailsAnimeActivity : AppCompatActivity() {
         )
         binding.tvRank.text = String.format(
             Locale.getDefault(),
-            "%s %d",
+            "%s #%d",
             getString(R.string.anime_details_rank),
             anime.data.rank
         )
         binding.tvPopularity.text = String.format(
             Locale.getDefault(),
-            "%s %d",
+            "%s #%d",
             getString(R.string.anime_details_popularity),
             anime.data.popularity
         )
-        var genres: String = ""
+        binding.tvStatus.text = String.format(
+            "%s %s",
+            getString(R.string.anime_details_status),
+            anime.data.status
+        )
+        var genres = ""
         for (g in anime.data.genres) {
             if (genres.isBlank()) {
                 genres += g.name
-            }
-            genres = String.format("%s,%s", genres, g.name)
+            } else genres = String.format("%s, %s", genres, g.name)
         }
         binding.tvGenres.text = String.format(
             Locale.getDefault(),
