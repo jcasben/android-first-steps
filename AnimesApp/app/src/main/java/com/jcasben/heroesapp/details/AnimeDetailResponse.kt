@@ -1,4 +1,4 @@
-package com.jcasben.heroesapp
+package com.jcasben.heroesapp.details
 
 import com.google.gson.annotations.SerializedName
 
