@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HeroesApp</string>
+    <string name="app_name">AnimesApp</string>
     <string name="anime_details_episodes">Episodes:</string>
     <string name="anime_details_score">Score:</string>
     <string name="anime_details_rank">Rank:</string>
@@ -8,4 +8,5 @@
     <string name="anime_details_status">Status:</string>
     <string name="anime_details_type">Type:</string>
     <string name="anime_details_synopsis">Synopsis</string>
+    <string name="anime_details_characters">Characters (max 20)</string>
 </resources>
