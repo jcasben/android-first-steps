@@ -1,11 +1,12 @@
-package com.jcasben.heroesapp.animes.details
+package com.jcasben.heroesapp.details
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.jcasben.heroesapp.AnimeDetailResponse
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.jcasben.heroesapp.ApiService
 import com.jcasben.heroesapp.R
+import com.jcasben.heroesapp.characters.Character
 import com.jcasben.heroesapp.databinding.ActivityDetailsAnimeBinding
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
@@ -21,23 +22,44 @@ class DetailsAnimeActivity : AppCompatActivity() {
         const val EXTRA_ID = "extra_id"
     }
 
+    val MAX_ITEMS = 20
+
     private lateinit var binding: ActivityDetailsAnimeBinding
+    private lateinit var adapter: CharactersAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsAnimeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val id: String = intent.getStringExtra(EXTRA_ID).orEmpty()
+        initUI()
         getAnimeInfo(id)
+    }
+
+    private fun initUI() {
+        adapter = CharactersAdapter()
+        binding.rvCharacters.setHasFixedSize(true)
+        binding.rvCharacters.layoutManager = LinearLayoutManager(this)
+        binding.rvCharacters.adapter = adapter
     }
 
     private fun getAnimeInfo(id: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val animeDetail = getRetrofit().create(ApiService::class.java).getAnimeDetails(id)
             Log.i("test", animeDetail.raw().toString())
-            if (animeDetail.body() != null) {
+            val characters = getRetrofit().create(ApiService::class.java).getAnimeCharacters(id)
+            Log.i("test", characters.raw().toString())
+            if (animeDetail.body() != null && characters.body() != null) {
                 Log.i("test", animeDetail.body().toString())
-                runOnUiThread { createScreen(animeDetail.body()!!) }
+                Log.i("test", characters.body().toString())
+                val chars = characters.body()!!.characters
+                val limitedData: List<Character> =
+                    if (chars.size > MAX_ITEMS) chars.subList(0, MAX_ITEMS)
+                else chars
+                runOnUiThread {
+                    createScreen(animeDetail.body()!!)
+                    adapter.updateList(limitedData)
+                }
             }
         }
     }
@@ -91,7 +113,9 @@ class DetailsAnimeActivity : AppCompatActivity() {
             getString(R.string.anime_details_genres),
             genres
         )
+        binding.titleSynopsis.text = getString(R.string.anime_details_synopsis)
         binding.tvSynopsis.text = anime.data.description
+        binding.titleCharacters.text = getString(R.string.anime_details_characters)
     }
 
     private fun getRetrofit(): Retrofit {

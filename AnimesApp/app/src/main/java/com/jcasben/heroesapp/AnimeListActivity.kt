@@ -8,10 +8,9 @@ import androidx.appcompat.widget.SearchView.*
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jcasben.heroesapp.databinding.ActivityAnimeListBinding
-import com.jcasben.heroesapp.animes.Anime
 import com.jcasben.heroesapp.animes.AnimeAdapter
 import com.jcasben.heroesapp.animes.AnimeResponse
-import com.jcasben.heroesapp.animes.details.DetailsAnimeActivity
+import com.jcasben.heroesapp.details.DetailsAnimeActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -45,9 +44,9 @@ class AnimeListActivity : AppCompatActivity() {
         })
 
         animeAdapter = AnimeAdapter{ animeId -> navigateToDetail(animeId) }
-        binding.rvHeroes.setHasFixedSize(true)
-        binding.rvHeroes.layoutManager = LinearLayoutManager(this)
-        binding.rvHeroes.adapter = animeAdapter
+        binding.rvAnimes.setHasFixedSize(true)
+        binding.rvAnimes.layoutManager = LinearLayoutManager(this)
+        binding.rvAnimes.adapter = animeAdapter
     }
 
     private fun searchByName(query: String) {
@@ -80,7 +79,7 @@ class AnimeListActivity : AppCompatActivity() {
     }
 
     private fun navigateToDetail(id: String) {
-        val intent = Intent(this,DetailsAnimeActivity::class.java)
+        val intent = Intent(this, DetailsAnimeActivity::class.java)
         intent.putExtra(DetailsAnimeActivity.EXTRA_ID, id)
         startActivity(intent)
     }
