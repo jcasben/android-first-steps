@@ -1,7 +1,6 @@
 package com.jcasben.horoscapp.ui.horoscope
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +9,22 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.jcasben.horoscapp.databinding.FragmentHoroscopeBinding
+import com.jcasben.horoscapp.domain.model.HoroscopeInfo.Aquarius
+import com.jcasben.horoscapp.domain.model.HoroscopeInfo.Aries
+import com.jcasben.horoscapp.domain.model.HoroscopeInfo.Cancer
+import com.jcasben.horoscapp.domain.model.HoroscopeInfo.Capricorn
+import com.jcasben.horoscapp.domain.model.HoroscopeInfo.Gemini
+import com.jcasben.horoscapp.domain.model.HoroscopeInfo.Leo
+import com.jcasben.horoscapp.domain.model.HoroscopeInfo.Libra
+import com.jcasben.horoscapp.domain.model.HoroscopeInfo.Pisces
+import com.jcasben.horoscapp.domain.model.HoroscopeInfo.Sagittarius
+import com.jcasben.horoscapp.domain.model.HoroscopeInfo.Scorpio
+import com.jcasben.horoscapp.domain.model.HoroscopeInfo.Taurus
+import com.jcasben.horoscapp.domain.model.HoroscopeInfo.Virgo
+import com.jcasben.horoscapp.domain.model.HoroscopeModel
 import com.jcasben.horoscapp.ui.horoscope.adapter.HoroscopeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -36,9 +49,27 @@ class HoroscopeFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        horoscopeAdapter = HoroscopeAdapter()
+        horoscopeAdapter = HoroscopeAdapter(onItemSelected = {
+            val type = when (it) {
+                Aquarius -> HoroscopeModel.Aquarius
+                Aries -> HoroscopeModel.Aries
+                Cancer -> HoroscopeModel.Cancer
+                Capricorn -> HoroscopeModel.Capricorn
+                Gemini -> HoroscopeModel.Gemini
+                Leo -> HoroscopeModel.Leo
+                Libra -> HoroscopeModel.Libra
+                Pisces -> HoroscopeModel.Pisces
+                Sagittarius -> HoroscopeModel.Sagittarius
+                Scorpio -> HoroscopeModel.Scorpio
+                Taurus -> HoroscopeModel.Taurus
+                Virgo -> HoroscopeModel.Virgo
+            }
+            findNavController().navigate(
+                HoroscopeFragmentDirections.actionHoroscopeFragmentToHoroscopeDetailActivity(type)
+            )
+        })
         binding.rvHoroscope.apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = GridLayoutManager(context, 2)
             adapter = horoscopeAdapter
         }
     }
