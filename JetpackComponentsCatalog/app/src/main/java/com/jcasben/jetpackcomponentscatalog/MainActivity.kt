@@ -2,14 +2,18 @@ package com.jcasben.jetpackcomponentscatalog
 
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ProgressBar
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,21 +21,27 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -51,8 +61,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             JetpackComponentsCatalogTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MyButton()
+                Surface(modifier = Modifier.fillMaxSize()) {
+                    MyAdvancedProgressBar()
                 }
             }
         }
@@ -177,6 +187,54 @@ fun MyAdvancedImage() {
 @Composable
 fun MyIcon() {
     Icon(imageVector = Icons.Rounded.Star, contentDescription = "Star Icon", tint = Color.Blue)
+}
+
+@Composable
+fun MyProgressBar() {
+    var showLoading by rememberSaveable { mutableStateOf(false) }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(24.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        if (showLoading) {
+            CircularProgressIndicator(color = Color.Red)
+            LinearProgressIndicator(
+                modifier = Modifier.padding(top = 8.dp), color = Color.Blue, trackColor = Color.Cyan
+            )
+        }
+        Button(onClick = { showLoading = !showLoading }) {
+            Text(text = "Load")
+        }
+    }
+}
+
+@Composable
+fun MyAdvancedProgressBar() {
+    var progress by rememberSaveable { mutableFloatStateOf(0.5f) }
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        CircularProgressIndicator(progress = { progress })
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Button(onClick = { progress -= 0.1f }, modifier = Modifier.padding(horizontal = 8.dp)) {
+                Text(text = "Remove progress")
+            }
+            Button(onClick = { progress += 0.1f }, modifier = Modifier.padding(horizontal = 8.dp)) {
+                Text(text = "Add progress")
+            }
+        }
+    }
 }
 
 @Preview(showBackground = true)
