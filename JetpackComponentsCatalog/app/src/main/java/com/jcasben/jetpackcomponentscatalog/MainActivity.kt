@@ -1,22 +1,29 @@
 package com.jcasben.jetpackcomponentscatalog
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,8 +43,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             JetpackComponentsCatalogTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    var myText by remember { mutableStateOf("") }
-                    MyStatelessComposable(name = myText) { myText = it }
+                    MyButton()
                 }
             }
         }
@@ -96,8 +102,7 @@ fun MyOutlinedTextField() {
         modifier = Modifier.padding(24.dp),
         label = { Text(text = "Introduce your name") },
         colors = OutlinedTextFieldDefaults.colors(
-            focusedBorderColor = Color.Magenta,
-            unfocusedBorderColor = Color.Green
+            focusedBorderColor = Color.Magenta, unfocusedBorderColor = Color.Green
         )
     )
 }
@@ -105,6 +110,39 @@ fun MyOutlinedTextField() {
 @Composable
 fun MyStatelessComposable(name: String, onValueChange: (String) -> Unit) {
     TextField(value = name, onValueChange = { onValueChange(it) })
+}
+
+@Preview
+@Composable
+fun MyButton() {
+    var enabled by rememberSaveable { mutableStateOf(true) }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        Button(
+            onClick = { enabled = false }, enabled = enabled, colors = ButtonDefaults.buttonColors(
+                contentColor = Color.White, containerColor = Color.Blue
+            ), border = BorderStroke(5.dp, Color.Magenta)
+        ) {
+            Text(text = "Hello")
+        }
+
+        OutlinedButton(
+            onClick = { },
+            modifier = Modifier.padding(top = 8.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Red
+            )
+        ) {
+            Text(text = "Hello")
+        }
+
+        TextButton(onClick = {}) {
+            Text(text = "Hello")
+        }
+    }
 }
 
 @Preview(showBackground = true)
