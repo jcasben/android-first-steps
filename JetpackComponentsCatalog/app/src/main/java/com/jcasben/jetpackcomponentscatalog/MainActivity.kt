@@ -2,7 +2,9 @@ package com.jcasben.jetpackcomponentscatalog
 
 import android.os.Bundle
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.ProgressBar
+import android.widget.Switch
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -12,15 +14,19 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
@@ -30,6 +36,8 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -58,11 +66,17 @@ import com.jcasben.jetpackcomponentscatalog.ui.theme.JetpackComponentsCatalogThe
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
         setContent {
             JetpackComponentsCatalogTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    MyAdvancedProgressBar()
+                    val options = getOptions(listOf("Option 1", "Option 2", "Option 3"))
+
+                    Column {
+                        options.forEach {
+                            MyTextCheckBoxHoisting(it)
+                        }
+                    }
                 }
             }
         }
@@ -234,6 +248,59 @@ fun MyAdvancedProgressBar() {
                 Text(text = "Add progress")
             }
         }
+    }
+}
+
+@Composable
+fun MySwitch() {
+    var state by rememberSaveable { mutableStateOf(false) }
+    Switch(
+        checked = state, onCheckedChange = { state = !state }, colors = SwitchDefaults.colors(
+            uncheckedThumbColor = Color.Blue,
+            checkedThumbColor = Color.Cyan,
+            uncheckedTrackColor = Color.Magenta,
+            checkedTrackColor = Color.Green
+        )
+    )
+}
+
+@Composable
+fun MyCheckBox() {
+    var state by rememberSaveable { mutableStateOf(false) }
+    Checkbox(
+        checked = state, onCheckedChange = { state = !state }, colors = CheckboxDefaults.colors(
+            uncheckedColor = Color.Magenta, checkedColor = Color.Blue, checkmarkColor = Color.Yellow
+        )
+    )
+}
+
+@Composable
+fun MyTextCheckBox() {
+    var state by rememberSaveable { mutableStateOf(false) }
+    Row(modifier = Modifier.padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
+        Checkbox(checked = state, onCheckedChange = { state = !state })
+        Text(text = "Check")
+    }
+}
+
+@Composable
+fun MyTextCheckBoxHoisting(checkBoxInfo: CheckBoxInfo) {
+    Row(modifier = Modifier.padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
+        Checkbox(checked = checkBoxInfo.selected,
+            onCheckedChange = { checkBoxInfo.onCheckedChange(!checkBoxInfo.selected) })
+        Text(text = checkBoxInfo.title)
+    }
+}
+
+@Composable
+fun getOptions(titles: List<String>): List<CheckBoxInfo> {
+    return titles.map {
+        var status by rememberSaveable { mutableStateOf(false) }
+        CheckBoxInfo(
+            title = it,
+            selected = status,
+            onCheckedChange = { newStatus -> status = newStatus }
+        )
     }
 }
 
