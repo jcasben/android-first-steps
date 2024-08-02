@@ -22,7 +22,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.rounded.Star
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -93,7 +96,7 @@ class MainActivity : ComponentActivity() {
 //                        MyRadioButtonList(selected) { selected = it }
 //                    }
 
-                    MyCard()
+                    MyBadgeBox()
                 }
             }
         }
@@ -146,7 +149,8 @@ fun MyAdvancedTextField() {
 @Composable
 fun MyOutlinedTextField() {
     var myText by remember { mutableStateOf("") }
-    OutlinedTextField(value = myText,
+    OutlinedTextField(
+        value = myText,
         onValueChange = { myText = it },
         modifier = Modifier.padding(24.dp),
         label = { Text(text = "Introduce your name") },
@@ -366,9 +370,10 @@ fun MyRadioButtonList(name: String, onItemSelected: (String) -> Unit) {
 
 @Composable
 fun MyCard() {
-    Card(modifier = Modifier
-        .fillMaxWidth()
-        .padding(16.dp),
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 12.dp),
         shape = MaterialTheme.shapes.small,
         colors = CardDefaults.cardColors(
@@ -385,10 +390,22 @@ fun MyCard() {
     }
 }
 
+@Composable
+fun MyBadgeBox() {
+    BadgedBox(badge = {
+        Badge(
+            containerColor = Color.Red,
+            contentColor = Color.White
+        ) { Text(text = "200") }
+    }, modifier = Modifier.padding(20.dp)) {
+        Icon(imageVector = Icons.Rounded.Star, contentDescription = "")
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     JetpackComponentsCatalogTheme {
-        MyTextField()
+        MyBadgeBox()
     }
 }
