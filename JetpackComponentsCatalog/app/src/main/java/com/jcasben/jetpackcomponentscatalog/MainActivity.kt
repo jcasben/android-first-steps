@@ -1,6 +1,7 @@
 package com.jcasben.jetpackcomponentscatalog
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
@@ -8,6 +9,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -64,7 +66,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jcasben.jetpackcomponentscatalog.ui.theme.JetpackComponentsCatalogTheme
-import com.jcasben.jetpackcomponentscatalog.ui.theme.MyAdvancedSlider
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,22 +74,16 @@ class MainActivity : ComponentActivity() {
         setContent {
             JetpackComponentsCatalogTheme {
                 Surface {
-//                    val options = getOptions(listOf("Option 1", "Option 2", "Option 3"))
-//                    MyTriStateCheckbox()
-//
-//                    Column {
-//                        options.forEach {
-//                            MyTextCheckBoxHoisting(it)
-//                        }
-//                    }
-
-//                    var selected by rememberSaveable { mutableStateOf("Option 1") }
-//
-//                    Column {
-//                        MyRadioButtonList(selected) { selected = it }
-//                    }
-
-                    MyAdvancedSlider()
+                    var show by rememberSaveable { mutableStateOf(false) }
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        Button(onClick = { show = true }) {
+                            Text(text = "Show Dialog")
+                        }
+                        MyDialog(
+                            show = show,
+                            onDismiss = { show = false },
+                            onConfirm = { Log.i("test", "click") })
+                    }
                 }
             }
         }
