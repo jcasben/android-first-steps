@@ -34,6 +34,8 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.ProgressIndicatorDefaults
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
@@ -72,13 +74,19 @@ class MainActivity : ComponentActivity() {
         setContent {
             JetpackComponentsCatalogTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    val options = getOptions(listOf("Option 1", "Option 2", "Option 3"))
-                    MyTriStateCheckbox()
+//                    val options = getOptions(listOf("Option 1", "Option 2", "Option 3"))
+//                    MyTriStateCheckbox()
+//
+//                    Column {
+//                        options.forEach {
+//                            MyTextCheckBoxHoisting(it)
+//                        }
+//                    }
+
+                    var selected by rememberSaveable { mutableStateOf("Option 1") }
 
                     Column {
-                        options.forEach {
-                            MyTextCheckBoxHoisting(it)
-                        }
+                        MyRadioButtonList(selected) { selected = it }
                     }
                 }
             }
@@ -132,8 +140,7 @@ fun MyAdvancedTextField() {
 @Composable
 fun MyOutlinedTextField() {
     var myText by remember { mutableStateOf("") }
-    OutlinedTextField(
-        value = myText,
+    OutlinedTextField(value = myText,
         onValueChange = { myText = it },
         modifier = Modifier.padding(24.dp),
         label = { Text(text = "Introduce your name") },
@@ -302,8 +309,7 @@ fun getOptions(titles: List<String>): List<CheckBoxInfo> {
         CheckBoxInfo(
             title = it,
             selected = status,
-            onCheckedChange = { newStatus -> status = newStatus }
-        )
+            onCheckedChange = { newStatus -> status = newStatus })
     }
 }
 
@@ -317,6 +323,39 @@ fun MyTriStateCheckbox() {
             ToggleableState.Indeterminate -> ToggleableState.On
         }
     })
+}
+
+@Composable
+fun MyRadioButton() {
+    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        RadioButton(
+            selected = false, onClick = { }, colors = RadioButtonDefaults.colors(
+                selectedColor = Color.Cyan, unselectedColor = Color.Magenta
+            )
+        )
+        Text(text = "Option 1")
+    }
+}
+
+@Composable
+fun MyRadioButtonList(name: String, onItemSelected: (String) -> Unit) {
+
+    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        RadioButton(selected = name == "Option 1", onClick = { onItemSelected("Option 1") })
+        Text(text = "Option 1")
+    }
+    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        RadioButton(selected = name == "Option 2", onClick = { onItemSelected("Option 2") })
+        Text(text = "Option 2")
+    }
+    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        RadioButton(selected = name == "Option 3", onClick = { onItemSelected("Option 3") })
+        Text(text = "Option 3")
+    }
+    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        RadioButton(selected = name == "Option 4", onClick = { onItemSelected("Option 4") })
+        Text(text = "Option 4")
+    }
 }
 
 @Preview(showBackground = true)
