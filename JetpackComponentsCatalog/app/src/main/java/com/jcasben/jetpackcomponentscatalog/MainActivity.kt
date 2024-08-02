@@ -25,11 +25,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -73,7 +77,7 @@ class MainActivity : ComponentActivity() {
 //        enableEdgeToEdge()
         setContent {
             JetpackComponentsCatalogTheme {
-                Surface(modifier = Modifier.fillMaxSize()) {
+                Surface {
 //                    val options = getOptions(listOf("Option 1", "Option 2", "Option 3"))
 //                    MyTriStateCheckbox()
 //
@@ -83,11 +87,13 @@ class MainActivity : ComponentActivity() {
 //                        }
 //                    }
 
-                    var selected by rememberSaveable { mutableStateOf("Option 1") }
+//                    var selected by rememberSaveable { mutableStateOf("Option 1") }
+//
+//                    Column {
+//                        MyRadioButtonList(selected) { selected = it }
+//                    }
 
-                    Column {
-                        MyRadioButtonList(selected) { selected = it }
-                    }
+                    MyCard()
                 }
             }
         }
@@ -355,6 +361,27 @@ fun MyRadioButtonList(name: String, onItemSelected: (String) -> Unit) {
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         RadioButton(selected = name == "Option 4", onClick = { onItemSelected("Option 4") })
         Text(text = "Option 4")
+    }
+}
+
+@Composable
+fun MyCard() {
+    Card(modifier = Modifier
+        .fillMaxWidth()
+        .padding(16.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 12.dp),
+        shape = MaterialTheme.shapes.small,
+        colors = CardDefaults.cardColors(
+            containerColor = Color.Blue,
+            contentColor = Color.Magenta
+        ),
+        border = BorderStroke(4.dp, Color.Yellow)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(text = "Example 1")
+            Text(text = "Example 2")
+            Text(text = "Example 3")
+        }
     }
 }
 
