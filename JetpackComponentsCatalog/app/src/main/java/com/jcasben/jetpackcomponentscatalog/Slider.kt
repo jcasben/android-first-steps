@@ -1,4 +1,4 @@
-package com.jcasben.jetpackcomponentscatalog.ui.theme
+package com.jcasben.jetpackcomponentscatalog
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Slider
