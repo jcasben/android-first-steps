@@ -34,6 +34,7 @@ import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -400,6 +401,11 @@ fun MyBadgeBox() {
     }, modifier = Modifier.padding(20.dp)) {
         Icon(imageVector = Icons.Rounded.Star, contentDescription = "")
     }
+}
+
+@Composable
+fun MyDivider() {
+    HorizontalDivider(modifier = Modifier.fillMaxWidth().padding(top = 16.dp))
 }
 
 @Preview(showBackground = true)
