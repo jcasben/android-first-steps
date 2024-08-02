@@ -11,6 +11,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,6 +35,8 @@ import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
@@ -97,7 +100,7 @@ class MainActivity : ComponentActivity() {
 //                        MyRadioButtonList(selected) { selected = it }
 //                    }
 
-                    MyBadgeBox()
+                    MyDropDownMenu()
                 }
             }
         }
@@ -405,7 +408,42 @@ fun MyBadgeBox() {
 
 @Composable
 fun MyDivider() {
-    HorizontalDivider(modifier = Modifier.fillMaxWidth().padding(top = 16.dp))
+    HorizontalDivider(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 16.dp)
+    )
+}
+
+@Composable
+fun MyDropDownMenu() {
+    var selectedText by rememberSaveable { mutableStateOf("") }
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    val desserts = listOf("Ice Cream", "Yogurt", "Fruit", "Mochi")
+
+    Column(modifier = Modifier.padding(20.dp)) {
+        OutlinedTextField(
+            value = selectedText,
+            onValueChange = { selectedText = it },
+            enabled = false,
+            readOnly = true,
+            modifier = Modifier
+                .clickable { expanded = true }
+                .fillMaxWidth()
+        )
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            desserts.forEach { dessert ->
+                DropdownMenuItem(text = { Text(text = dessert) }, onClick = {
+                    expanded = false
+                    selectedText = dessert
+                })
+            }
+        }
+    }
 }
 
 @Preview(showBackground = true)
