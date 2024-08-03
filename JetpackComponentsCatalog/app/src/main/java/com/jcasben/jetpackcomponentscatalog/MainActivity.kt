@@ -1,7 +1,6 @@
 package com.jcasben.jetpackcomponentscatalog
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
@@ -79,10 +78,7 @@ class MainActivity : ComponentActivity() {
                         Button(onClick = { show = true }) {
                             Text(text = "Show Dialog")
                         }
-                        MyDialog(
-                            show = show,
-                            onDismiss = { show = false },
-                            onConfirm = { Log.i("test", "click") })
+                        MyConfirmationDialog(show = show, onDismiss = { show = false })
                     }
                 }
             }
