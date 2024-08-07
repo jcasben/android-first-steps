@@ -1,6 +1,7 @@
 package com.jcasben.jetpackcomponentscatalog
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
@@ -55,6 +56,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.TextStyle
@@ -73,13 +75,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             JetpackComponentsCatalogTheme {
                 Surface {
-                    var show by rememberSaveable { mutableStateOf(false) }
-                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        Button(onClick = { show = true }) {
-                            Text(text = "Show Dialog")
-                        }
-                        MyConfirmationDialog(show = show, onDismiss = { show = false })
-                    }
+                    SuperHeroView()
                 }
             }
         }
