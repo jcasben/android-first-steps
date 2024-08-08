@@ -75,7 +75,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             JetpackComponentsCatalogTheme {
                 Surface {
-                    SuperHeroView()
+                    SuperHeroStickyView()
                 }
             }
         }
