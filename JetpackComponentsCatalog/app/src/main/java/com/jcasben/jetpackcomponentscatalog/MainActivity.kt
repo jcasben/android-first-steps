@@ -1,7 +1,6 @@
 package com.jcasben.jetpackcomponentscatalog
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
@@ -9,7 +8,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -56,7 +54,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.TextStyle
@@ -66,7 +63,12 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.jcasben.jetpackcomponentscatalog.model.CheckBoxInfo
 import com.jcasben.jetpackcomponentscatalog.ui.theme.JetpackComponentsCatalogTheme
+import kotlinx.serialization.Serializable
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,12 +77,35 @@ class MainActivity : ComponentActivity() {
         setContent {
             JetpackComponentsCatalogTheme {
                 Surface {
-                    ScaffoldExample()
+                    val navController = rememberNavController()
+                    NavHost(navController = navController, startDestination = Screen2) {
+                        composable<Screen1> {
+                            Screen1(navController)
+                        }
+                        composable<Screen2> {
+                            Screen2(navController)
+                        }
+                        composable<Screen3> {
+                            Screen3(navController)
+                        }
+                    }
                 }
             }
         }
     }
 }
+
+@Serializable
+object Screen1
+
+@Serializable
+data class Screen2(
+    val name: String,
+    val age: Int
+)
+
+@Serializable
+object Screen3
 
 @Composable
 fun MyText() {

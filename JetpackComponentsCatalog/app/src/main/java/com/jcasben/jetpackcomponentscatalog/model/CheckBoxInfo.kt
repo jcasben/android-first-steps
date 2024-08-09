@@ -1,4 +1,4 @@
-package com.jcasben.jetpackcomponentscatalog
+package com.jcasben.jetpackcomponentscatalog.model
 
 data class CheckBoxInfo(
     val title: String,
