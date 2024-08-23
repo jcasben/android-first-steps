@@ -77,18 +77,19 @@ class MainActivity : ComponentActivity() {
         setContent {
             JetpackComponentsCatalogTheme {
                 Surface {
-                    val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = Screen2) {
-                        composable<Screen1> {
-                            Screen1(navController)
-                        }
-                        composable<Screen2> {
-                            Screen2(navController)
-                        }
-                        composable<Screen3> {
-                            Screen3(navController)
-                        }
-                    }
+//                    val navController = rememberNavController()
+//                    NavHost(navController = navController, startDestination = Screen2) {
+//                        composable<Screen1> {
+//                            Screen1(navController)
+//                        }
+//                        composable<Screen2> {
+//                            Screen2(navController)
+//                        }
+//                        composable<Screen3> {
+//                            Screen3(navController)
+//                        }
+//                    }
+                    CrossfadeAnimation()
                 }
             }
         }
