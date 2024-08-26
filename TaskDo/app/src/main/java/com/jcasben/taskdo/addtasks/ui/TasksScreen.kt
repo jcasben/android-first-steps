@@ -1,17 +1,14 @@
 package com.jcasben.taskdo.addtasks.ui
 
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,11 +17,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -34,6 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -41,27 +37,45 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import com.jcasben.taskdo.addtasks.ui.model.TaskModel
 
 
 @Composable
 fun TasksScreen(tasksViewModel: TasksViewModel) {
     val showDialog: Boolean by tasksViewModel.showDialog.observeAsState(initial = false)
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+    val uiState by produceState<TaskUiState>(
+        initialValue = TaskUiState.Loading,
+        key1 = lifecycle,
+        key2 = tasksViewModel
+    ) {
+        lifecycle.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+            tasksViewModel.uiState.collect { value = it }
+        }
+    }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        AddTaskDialog(
-            show = showDialog,
-            onDismiss = { tasksViewModel.onDialogClose() },
-            onTaskAdded = { tasksViewModel.onTaskCreated(it) },
-            tasksViewModel
-        )
-        FABAddTaskDialog(Modifier.align(Alignment.BottomEnd), tasksViewModel)
-        TasksList(tasksViewModel)
+    when (uiState) {
+        is TaskUiState.Error -> {}
+        TaskUiState.Loading -> {}
+        is TaskUiState.Success -> {
+            Box(modifier = Modifier.fillMaxSize()) {
+                AddTaskDialog(
+                    show = showDialog,
+                    onDismiss = { tasksViewModel.onDialogClose() },
+                    onTaskAdded = { tasksViewModel.onTaskCreated(it) },
+                    tasksViewModel
+                )
+                FABAddTaskDialog(Modifier.align(Alignment.BottomEnd), tasksViewModel)
+                TasksList((uiState as TaskUiState.Success).tasks, tasksViewModel)
+            }
+        }
     }
 }
 
@@ -117,8 +131,7 @@ fun AddTaskDialog(
 }
 
 @Composable
-fun TasksList(tasksViewModel: TasksViewModel) {
-    val tasks: List<TaskModel> = tasksViewModel.tasks
+fun TasksList(tasks: List<TaskModel>, tasksViewModel: TasksViewModel) {
     LazyColumn {
         items(tasks, key = { it.id }) { task ->
             TaskItem(task, tasksViewModel)
@@ -126,18 +139,14 @@ fun TasksList(tasksViewModel: TasksViewModel) {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TaskItem(taskModel: TaskModel, tasksViewModel: TasksViewModel) {
-    val interactionSource = remember { MutableInteractionSource() }
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
-            .pointerInput(Unit) {
-                detectTapGestures(onLongPress = {
-                    tasksViewModel.onItemRemoved(taskModel)
-                })
-            },
+            .combinedClickable(onClick = {}, onLongClick = {tasksViewModel.onItemRemoved(taskModel)}),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
