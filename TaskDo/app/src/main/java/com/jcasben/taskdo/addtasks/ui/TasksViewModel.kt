@@ -34,21 +34,32 @@ class TasksViewModel @Inject constructor(
             TaskUiState.Loading
         )
 
-    private val _showDialog = MutableLiveData<Boolean>()
-    val showDialog: LiveData<Boolean> = _showDialog
+    private val _showAddDialog = MutableLiveData<Boolean>()
+    val showAddDialog: LiveData<Boolean> = _showAddDialog
 
-    fun onDialogClose() {
-        _showDialog.value = false
+    private val _showDeleteDialog = MutableLiveData<Boolean>()
+    val showDeleteDialog: LiveData<Boolean> = _showDeleteDialog
+
+    fun onAddDialogClose() {
+        _showAddDialog.value = false
+    }
+
+    fun onDeleteDialogClose() {
+        _showDeleteDialog.value = false
     }
 
     fun onTaskCreated(task: String) {
         val taskModel = TaskModel(task = task)
         viewModelScope.launch { addTaskUseCase(taskModel) }
-        onDialogClose()
+        onAddDialogClose()
     }
 
-    fun onShowDialogClick() {
-        _showDialog.value = true
+    fun onShowAddDialogClick() {
+        _showAddDialog.value = true
+    }
+
+    fun onShowDeleteDialogClick() {
+        _showDeleteDialog.value = true
     }
 
     fun onCheckBoxSelected(taskModel: TaskModel) {
@@ -61,5 +72,6 @@ class TasksViewModel @Inject constructor(
         viewModelScope.launch {
             deleteTaskUseCase(taskModel)
         }
+        onDeleteDialogClose()
     }
 }
