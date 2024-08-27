@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "635800104512",
+    "project_id": "fir-lite-85ff4",
+    "storage_bucket": "fir-lite-85ff4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635800104512:android:8e24fb401e84dd631279a5",
+        "android_client_info": {
+          "package_name": "com.jcasben.firebaselite"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlrbdpVUNk5sJDfCLhno0c6VHp78q_YhE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
