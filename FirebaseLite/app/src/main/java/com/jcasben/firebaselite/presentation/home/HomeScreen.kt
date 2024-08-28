@@ -16,7 +16,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,7 +27,6 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jcasben.firebaselite.R
@@ -38,7 +36,6 @@ import com.jcasben.firebaselite.ui.theme.Gray
 import com.jcasben.firebaselite.ui.theme.Green
 import com.jcasben.firebaselite.ui.theme.ShapeButton
 
-@Preview
 @Composable
 fun HomeScreen(navigateToLogin: () -> Unit = {}, navigateToSignUp: () -> Unit = {}) {
     Column(
@@ -70,7 +67,7 @@ fun HomeScreen(navigateToLogin: () -> Unit = {}, navigateToSignUp: () -> Unit = 
         )
         Spacer(modifier = Modifier.weight(1f))
         Button(
-            onClick = { navigateToLogin() },
+            onClick = { navigateToSignUp() },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 32.dp)
@@ -96,7 +93,7 @@ fun HomeScreen(navigateToLogin: () -> Unit = {}, navigateToSignUp: () -> Unit = 
             color = Color.White,
             modifier = Modifier
                 .padding(24.dp)
-                .clickable { navigateToSignUp() },
+                .clickable { navigateToLogin() },
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.weight(1f))
