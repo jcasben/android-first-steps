@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "766423798860",
+    "project_id": "basicrealtime-4100d",
+    "storage_bucket": "basicrealtime-4100d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766423798860:android:6e29f959e3e72cf37c10e9",
+        "android_client_info": {
+          "package_name": "com.jcasben.basicrealtime"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGhB8p9AxkZLW1q3ZEyKh4bog__y7ArA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
