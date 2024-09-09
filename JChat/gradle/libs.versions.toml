@@ -1,6 +1,8 @@
 [versions]
 agp = "8.5.1"
 firebaseBom = "33.2.0"
+hiltAndroid = "2.45"
+hiltCompiler = "2.44"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -13,6 +15,7 @@ constraintlayout = "2.1.4"
 navigationFragmentKtx = "2.8.0"
 service = "4.4.2"
 crashlytics = "3.0.2"
+hilt = "2.44"
 
 
 [libraries]
@@ -22,6 +25,8 @@ androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx",
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-database = { module = "com.google.firebase:firebase-database-ktx" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltCompiler" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -35,4 +40,4 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 googleServices = { id = "com.google.gms.google-services", version.ref = "service" }
 crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics" }
-
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
