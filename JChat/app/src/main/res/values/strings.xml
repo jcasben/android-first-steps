@@ -6,4 +6,6 @@
     <string name="welcome_subtitle">The fastest messaging app.</string>
     <string name="edit_text_hint">What is your name?</string>
     <string name="btn_chat_text">Chat Now</string>
+    <string name="btn_send">Send</string>
+    <string name="message_hint">Message</string>
 </resources>

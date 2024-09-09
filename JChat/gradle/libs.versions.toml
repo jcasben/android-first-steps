@@ -10,12 +10,15 @@ appcompat = "1.6.1"
 material = "1.10.0"
 activity = "1.9.1"
 constraintlayout = "2.1.4"
+navigationFragmentKtx = "2.8.0"
 service = "4.4.2"
 crashlytics = "3.0.2"
 
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-fragment-ui-ktx = { module = "androidx.navigation:navigation-fragment-ui-ktx", version.ref = "navigationFragmentKtx" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-database = { module = "com.google.firebase:firebase-database-ktx" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
