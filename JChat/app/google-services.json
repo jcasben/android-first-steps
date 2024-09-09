@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "711839119168",
+    "project_id": "jchat-8e56c",
+    "storage_bucket": "jchat-8e56c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711839119168:android:f0253113ba1b7d98362ca5",
+        "android_client_info": {
+          "package_name": "com.jcasben.jchat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT5jwtF_v4lDbHs4iHXFXZIFWKImF5xro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
