@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/tvDateMe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textColor="@color/hour_date_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="akdsjasd" />
+
+    <ImageView
+        android:id="@+id/ivUser"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginHorizontal="8dp"
+        android:background="@color/hour_date_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/message"
+        app:layout_constraintTop_toTopOf="@id/message"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        app:cardBackgroundColor="@color/card_other_background"
+        app:cardCornerRadius="12dp"
+        app:cardUseCompatPadding="true"
+        android:layout_marginHorizontal="4dp"
+        app:layout_constraintStart_toEndOf="@id/ivUser"
+        app:layout_constraintTop_toBottomOf="@id/tvDateMe">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/messageOwner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Jesus"
+                android:textColor="@color/card_me_background"
+                android:paddingHorizontal="4dp" />
+
+            <TextView
+                android:id="@+id/messageBody"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                android:textColor="@color/message_other_color"
+                tools:text="Hello from JChat!" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/hour_date_color"
+        android:textSize="11sp"
+        android:translationX="-12dp"
+        app:layout_constraintStart_toEndOf="@id/message"
+        app:layout_constraintTop_toBottomOf="@id/message"
+        tools:text="17:40" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
