@@ -7,9 +7,9 @@ import com.jcasben.jchat.data.network.dto.UserDto
 import javax.inject.Inject
 
 class SendMessageUseCase @Inject constructor(private val firebaseChatService: FirebaseChatService) {
-    operator fun invoke(message: String) {
+    operator fun invoke(message: String, username: String) {
         val calendar = Calendar.getInstance()
-        val userDto = UserDto("Test", false)
+        val userDto = UserDto(username, false)
         val messageDto = MessageDto(
             message = message,
             hour = "${calendar.get(Calendar.HOUR)}:${calendar.get(Calendar.MINUTE)}",

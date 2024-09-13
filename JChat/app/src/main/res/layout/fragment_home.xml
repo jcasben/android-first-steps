@@ -71,4 +71,14 @@
         android:text="@string/btn_chat_text"
         android:backgroundTint="@color/card_me_background" />
 
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

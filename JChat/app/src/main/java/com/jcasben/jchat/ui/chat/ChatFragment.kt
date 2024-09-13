@@ -27,8 +27,26 @@ class ChatFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentChatBinding.inflate(layoutInflater, container, false)
-        binding.ivBack.setOnClickListener { findNavController().navigate(R.id.action_back) }
-        binding.btnSend.setOnClickListener { viewModel.sendMessage() }
+        binding.apply {
+
+            ivBack.setOnClickListener {
+                viewModel.logout {
+                    findNavController().navigate(R.id.action_back)
+                }
+            }
+            btnSend.setOnClickListener {
+                val message = binding.etMessage.text.toString()
+                if (message.isNotEmpty()) {
+                    viewModel.sendMessage(message)
+                }
+                binding.etMessage.text.clear()
+            }
+            ivLogout.setOnClickListener {
+                viewModel.logout {
+                    findNavController().navigate(R.id.action_back)
+                }
+            }
+        }
         setUpUI()
         return binding.root
     }
@@ -36,10 +54,15 @@ class ChatFragment : Fragment() {
     private fun setUpUI() {
         setUpMessages()
         subscribeToMessages()
+        setUpToolbar()
+    }
+
+    private fun setUpToolbar() {
+        binding.tvToolbarTitle.text = String.format("Welcome, %s", viewModel.username)
     }
 
     private fun setUpMessages() {
-        chatAdapter = ChatAdapter(mutableListOf(), "Jesus")
+        chatAdapter = ChatAdapter(mutableListOf())
         binding.rvMessages.apply {
             adapter = chatAdapter
             layoutManager = LinearLayoutManager(context)
@@ -49,7 +72,8 @@ class ChatFragment : Fragment() {
     private fun subscribeToMessages() {
         lifecycleScope.launch {
             viewModel.messageList.collect {
-                chatAdapter.updateList(it.toMutableList())
+                chatAdapter.updateList(it.toMutableList(), viewModel.username)
+                setUpToolbar()
                 binding.rvMessages.scrollToPosition(chatAdapter.itemCount - 1)
             }
         }

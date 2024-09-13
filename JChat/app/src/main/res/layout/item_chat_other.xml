@@ -45,11 +45,11 @@
 
             <TextView
                 android:id="@+id/messageOwner"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Jesus"
                 android:textColor="@color/card_me_background"
-                android:paddingHorizontal="4dp" />
+                android:paddingHorizontal="8dp" />
 
             <TextView
                 android:id="@+id/messageBody"

@@ -23,13 +23,21 @@
             android:src="@drawable/ic_back" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tvToolbarTitle"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="16dp"
-            android:gravity="center"
+            android:layout_weight="1"
+            android:gravity="start|center_vertical"
             android:textSize="24sp"
             android:textStyle="bold"
             tools:text="Welcome, User" />
+
+        <ImageView
+            android:id="@+id/ivLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_logout"
+            android:paddingHorizontal="16dp" />
 
     </LinearLayout>
 

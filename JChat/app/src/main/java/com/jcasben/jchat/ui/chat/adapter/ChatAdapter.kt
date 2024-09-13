@@ -9,7 +9,7 @@ import com.jcasben.jchat.domain.model.MessageModel
 
 class ChatAdapter(
     private var messageList: MutableList<MessageModel>,
-    private val username: String
+    private var username: String = ""
 ) : RecyclerView.Adapter<ChatViewHolder>() {
 
     companion object {
@@ -44,7 +44,8 @@ class ChatAdapter(
         return if (messageList[position].user.username == username) SENT_MESSAGE else RECEIVED_MESSAGE
     }
 
-    fun updateList(messages: MutableList<MessageModel>) {
+    fun updateList(messages: MutableList<MessageModel>, username: String) {
+        this.username = username
         messageList.clear()
         messageList.addAll(messages)
         notifyItemInserted(messageList.size - 1)
