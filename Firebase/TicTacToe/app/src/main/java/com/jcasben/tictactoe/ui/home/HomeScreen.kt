@@ -19,15 +19,20 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, homeViewModel: HomeViewModel = hiltViewModel()) {
-    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+fun HomeScreen(
+    homeViewModel: HomeViewModel = hiltViewModel(),
+    navigateToGame: () -> Unit
+) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(modifier = Modifier.weight(2f))
         CreateGame { homeViewModel.onCreateGame() }
         Spacer(modifier = Modifier.weight(1f))
 
-        Divider(modifier = Modifier
-            .fillMaxWidth()
-            .height(2.dp))
+        Divider(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(2.dp)
+        )
 
         Spacer(modifier = Modifier.weight(1f))
         JoinGame { homeViewModel.onJoinGame(it) }
@@ -36,14 +41,14 @@ fun HomeScreen(modifier: Modifier = Modifier, homeViewModel: HomeViewModel = hil
 }
 
 @Composable
-fun CreateGame(onCreateGame: () -> Unit) {
+private fun CreateGame(onCreateGame: () -> Unit) {
     Button(onClick = { onCreateGame() }) {
         Text(text = "Create New Game")
     }
 }
 
 @Composable
-fun JoinGame(onJoinGame: (String) -> Unit) {
+private fun JoinGame(onJoinGame: (String) -> Unit) {
     var text by remember { mutableStateOf("") }
     TextField(value = text, onValueChange = { text = it })
     Button(onClick = { onJoinGame(text) }, enabled = text.isNotEmpty()) {
