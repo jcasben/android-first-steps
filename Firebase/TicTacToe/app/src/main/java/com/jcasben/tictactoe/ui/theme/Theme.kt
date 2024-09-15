@@ -34,7 +34,7 @@ fun TicTacToeTheme(
     content: @Composable () -> Unit
 ) {
     MaterialTheme(
-        colors = DarkColorScheme,
+        colors = LightColorScheme,
         typography = Typography,
         content = content
     )
