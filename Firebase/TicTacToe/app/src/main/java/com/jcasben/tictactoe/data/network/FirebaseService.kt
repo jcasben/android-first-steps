@@ -35,4 +35,10 @@ class FirebaseService @Inject constructor(private val databaseReference: Databas
             databaseReference.child(PATH).child(game.gameId).setValue(game)
         }
     }
+
+    fun gameExists(gameId: String): Flow<Boolean> {
+        return databaseReference.child(PATH).child(gameId).snapshots.map { dataSnapshot ->
+            dataSnapshot.exists()
+        }
+    }
 }
