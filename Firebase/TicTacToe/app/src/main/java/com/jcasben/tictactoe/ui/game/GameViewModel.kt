@@ -23,6 +23,9 @@ class GameViewModel @Inject constructor(
     private var _game = MutableStateFlow<GameModel?>(null)
     val game: StateFlow<GameModel?> = _game
 
+    private var _winner = MutableStateFlow<PlayerType?>(null)
+    val winner: StateFlow<PlayerType?> = _winner
+
     fun joinToGame(gameId: String, userId: String, owner: Boolean) {
         this.userId = userId
         if (owner) join(gameId)
@@ -46,19 +49,21 @@ class GameViewModel @Inject constructor(
     private fun join(gameId: String) {
         viewModelScope.launch {
             firebaseService.joinGame(gameId).collect {
-                val result = it?.copy(isGameReady = it.player2 != null, isMyTurn = isMyTurn())
+                val result =
+                    it?.copy(isGameReady = it.player2 != null, isMyTurn = isMyTurn(it.playerTurn))
                 _game.value = result
+                verifyWinner()
             }
         }
     }
 
-    private fun isMyTurn(): Boolean {
-        return game.value?.playerTurn?.userId == userId
+    private fun isMyTurn(playerTurn: PlayerModel): Boolean {
+        return playerTurn.userId == userId
     }
 
     fun onItemSelected(position: Int) {
         val current = _game.value ?: return
-        if (current.isGameReady && current.board[position] == PlayerType.Empty && isMyTurn()) {
+        if (current.isGameReady && current.board[position] == PlayerType.Empty && isMyTurn(current.playerTurn)) {
             viewModelScope.launch {
                 val newBoard = current.board.toMutableList()
                 newBoard[position] = getPlayer() ?: PlayerType.Empty
@@ -82,6 +87,50 @@ class GameViewModel @Inject constructor(
 
     private fun changeTurn(): PlayerModel? {
         return if (_game.value?.player1?.userId == userId) _game.value?.player2 else _game.value?.player1
+    }
 
+    private fun verifyWinner() {
+        val board = _game.value?.board
+        if (board != null && board.size == 9) {
+            when {
+                isGameWon(board, PlayerType.FirstPlayer) -> {
+                    _winner.value = PlayerType.FirstPlayer
+                }
+
+                isGameWon(board, PlayerType.SecondPlayer) -> {
+                    _winner.value = PlayerType.SecondPlayer
+                }
+
+                isBoardFull(board) -> {
+                    _winner.value = PlayerType.Empty
+                }
+
+                else -> _winner.value = null
+            }
+        }
+    }
+
+    private fun isGameWon(board: List<PlayerType>, playerType: PlayerType): Boolean {
+        return when {
+            // Rows
+            (board[0] == playerType && board[1] == playerType && board[2] == playerType) -> true
+            (board[3] == playerType && board[4] == playerType && board[5] == playerType) -> true
+            (board[6] == playerType && board[7] == playerType && board[8] == playerType) -> true
+
+            // Columns
+            (board[0] == playerType && board[3] == playerType && board[6] == playerType) -> true
+            (board[1] == playerType && board[4] == playerType && board[7] == playerType) -> true
+            (board[2] == playerType && board[5] == playerType && board[8] == playerType) -> true
+
+            // Diagonal
+            (board[0] == playerType && board[4] == playerType && board[8] == playerType) -> true
+            (board[2] == playerType && board[4] == playerType && board[6] == playerType) -> true
+
+            else -> false
+        }
+    }
+
+    private fun isBoardFull(board: List<PlayerType?>): Boolean {
+        return board.all { it != null && it != PlayerType.Empty }
     }
 }

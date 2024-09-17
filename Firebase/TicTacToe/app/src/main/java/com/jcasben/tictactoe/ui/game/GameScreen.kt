@@ -34,7 +34,20 @@ fun GameScreen(
     }
 
     val game: GameModel? by gameViewModel.game.collectAsState()
-    Board(game) { gameViewModel.onItemSelected(it) }
+    val winner: PlayerType? by gameViewModel.winner.collectAsState()
+    if (winner != null && winner != PlayerType.Empty) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            val currentWinner = if (winner == PlayerType.FirstPlayer) "Player 1" else "Player 2"
+            Text(text = "$currentWinner won!")
+        }
+    } else if (winner == PlayerType.Empty) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Text(text = "It's a draw!")
+        }
+    } else {
+        Board(game) { gameViewModel.onItemSelected(it) }
+    }
+
 }
 
 @Composable
