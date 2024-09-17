@@ -25,17 +25,8 @@ class GameViewModel @Inject constructor(
 
     fun joinToGame(gameId: String, userId: String, owner: Boolean) {
         this.userId = userId
-        if (owner) joinGameAsOwner(gameId)
+        if (owner) join(gameId)
         else joinGameAsGuest(gameId)
-    }
-
-    private fun joinGameAsOwner(gameId: String) {
-        viewModelScope.launch {
-            firebaseService.joinGame(gameId).collect {
-                val result = it?.copy(isGameReady = it.player2 != null)
-                _game.value = result
-            }
-        }
     }
 
     private fun joinGameAsGuest(gameId: String) {
@@ -48,10 +39,49 @@ class GameViewModel @Inject constructor(
                 }
             }
 
+            join(gameId)
+        }
+    }
+
+    private fun join(gameId: String) {
+        viewModelScope.launch {
             firebaseService.joinGame(gameId).collect {
-                val result = it?.copy(isGameReady = it.player2 != null)
+                val result = it?.copy(isGameReady = it.player2 != null, isMyTurn = isMyTurn())
                 _game.value = result
             }
         }
+    }
+
+    private fun isMyTurn(): Boolean {
+        return game.value?.playerTurn?.userId == userId
+    }
+
+    fun onItemSelected(position: Int) {
+        val current = _game.value ?: return
+        if (current.isGameReady && current.board[position] == PlayerType.Empty && isMyTurn()) {
+            viewModelScope.launch {
+                val newBoard = current.board.toMutableList()
+                newBoard[position] = getPlayer() ?: PlayerType.Empty
+                firebaseService.updateGame(
+                    current.copy(
+                        board = newBoard,
+                        playerTurn = changeTurn()!!
+                    ).toData()
+                )
+            }
+        }
+    }
+
+    private fun getPlayer(): PlayerType? {
+        return when {
+            (_game.value?.player1?.userId == userId) -> PlayerType.FirstPlayer
+            (_game.value?.player2?.userId == userId) -> PlayerType.SecondPlayer
+            else -> null
+        }
+    }
+
+    private fun changeTurn(): PlayerModel? {
+        return if (_game.value?.player1?.userId == userId) _game.value?.player2 else _game.value?.player1
+
     }
 }
