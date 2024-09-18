@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "68568628062",
+    "project_id": "fir-auth-72faa",
+    "storage_bucket": "fir-auth-72faa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:68568628062:android:d9e615d1c9b8b68061edcf",
+        "android_client_info": {
+          "package_name": "com.jcasben.fbaseauth"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJxc1N9hhH0ePk9i4QR1-yhF9-ZnG2eeo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
