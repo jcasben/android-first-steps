@@ -14,3 +14,5 @@ val Background = Color(0xFF27313E)
 val OrangeMain = Color(0xFFF1701F)
 val OrangeSecondary = Color(0xFFFDC33F)
 val Accent = Color(0xFFFFFFFF)
+
+val BlueLink = Color(0xFF2B73F1)

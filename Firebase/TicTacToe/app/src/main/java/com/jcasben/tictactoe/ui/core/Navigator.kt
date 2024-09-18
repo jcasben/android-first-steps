@@ -32,7 +32,8 @@ fun NavigationWrapper(navigationController: NavHostController) {
             GameScreen(
                 gameId = it.arguments?.getString("gameId").orEmpty(),
                 userId = it.arguments?.getString("userId").orEmpty(),
-                owner = it.arguments?.getBoolean("owner") ?: false
+                owner = it.arguments?.getBoolean("owner") ?: false,
+                navigateHome = { navigationController.popBackStack() }
             )
         }
     }

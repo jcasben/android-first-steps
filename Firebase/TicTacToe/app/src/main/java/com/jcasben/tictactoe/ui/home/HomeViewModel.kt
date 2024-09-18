@@ -1,11 +1,5 @@
 package com.jcasben.tictactoe.ui.home
 
-import android.widget.Toast
-import androidx.compose.material.SnackbarHostState
-import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jcasben.tictactoe.data.network.FirebaseService
@@ -16,7 +10,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.take
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.UUID
 import javax.inject.Inject
@@ -41,8 +34,6 @@ class HomeViewModel @Inject constructor(
     }
 
     fun onJoinGame(gameId: String, navigateToGame: (String, String, Boolean) -> Unit) {
-//        val owner = false
-//        navigateToGame(gameId, createUserId(), owner)
         val owner = false
         viewModelScope.launch {
             firebaseService.gameExists(gameId).take(1).collect { exists ->
