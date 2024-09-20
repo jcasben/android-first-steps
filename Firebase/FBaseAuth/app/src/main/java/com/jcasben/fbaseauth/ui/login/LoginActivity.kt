@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.jcasben.fbaseauth.databinding.ActivityLoginBinding
 import com.jcasben.fbaseauth.ui.detail.DetailActivity
+import com.jcasben.fbaseauth.ui.register.RegisterActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -50,6 +51,11 @@ class LoginActivity : AppCompatActivity() {
                 navigateToDetail = { navigateToDetail() }
             )
         }
+        binding.Register.setOnClickListener { navigateToSignUp() }
+    }
+
+    private fun navigateToSignUp() {
+        startActivity(Intent(this, RegisterActivity::class.java))
     }
 
     private fun navigateToDetail() {
