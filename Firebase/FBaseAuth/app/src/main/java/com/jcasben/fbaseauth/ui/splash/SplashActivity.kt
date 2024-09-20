@@ -4,10 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.jcasben.fbaseauth.R
 import com.jcasben.fbaseauth.databinding.ActivitySplashBinding
+import com.jcasben.fbaseauth.ui.detail.DetailActivity
 import com.jcasben.fbaseauth.ui.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,7 +19,14 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        navigateToLogin()
+        when(splashViewModel.checkDestination()) {
+            SplashDestination.Home -> navigateToHome()
+            SplashDestination.Login -> navigateToLogin()
+        }
+    }
+
+    private fun navigateToHome() {
+        startActivity(Intent(this, DetailActivity::class.java))
     }
 
     private fun navigateToLogin() {

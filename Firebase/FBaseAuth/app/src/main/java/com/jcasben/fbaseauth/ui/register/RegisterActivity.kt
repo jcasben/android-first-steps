@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.jcasben.fbaseauth.databinding.ActivityRegisterBinding
 import com.jcasben.fbaseauth.ui.detail.DetailActivity
+import com.jcasben.fbaseauth.ui.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -32,16 +33,23 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun initListeners() {
-        binding.btnRegister.setOnClickListener {
-            registerViewModel.register(
-                email = binding.tietUser.text.toString(),
-                password = binding.tietPassword.text.toString()
-            ) { navigateToDetail() }
+        binding.apply {
+            btnRegister.setOnClickListener {
+                registerViewModel.register(
+                    email = binding.tietUser.text.toString(),
+                    password = binding.tietPassword.text.toString()
+                ) { navigateToDetail() }
+            }
+            tvLoginHere.setOnClickListener { navigateToLogin() }
         }
     }
 
     private fun navigateToDetail() {
         startActivity(Intent(this, DetailActivity::class.java))
+    }
+
+    private fun navigateToLogin() {
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 
     private fun initUIState() {
