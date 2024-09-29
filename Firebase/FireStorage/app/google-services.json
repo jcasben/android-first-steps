@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "906247261328",
+    "project_id": "fir-storage-ed29c",
+    "storage_bucket": "fir-storage-ed29c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906247261328:android:5b88790133e33dfb13dc15",
+        "android_client_info": {
+          "package_name": "com.jcasben.firebasestorage"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWCYHB7qqb2NgNqJUHfQJvU9JNaBs3ais"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906247261328:android:54c9a88dc3169f2513dc15",
+        "android_client_info": {
+          "package_name": "com.jcasben.firestorage"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWCYHB7qqb2NgNqJUHfQJvU9JNaBs3ais"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
