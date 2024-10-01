@@ -6,5 +6,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
 data class EpisodesState(
-    val characters: Flow<PagingData<EpisodeModel>> = emptyFlow()
+    val characters: Flow<PagingData<EpisodeModel>> = emptyFlow(),
+    val playVideo: String = ""
 )

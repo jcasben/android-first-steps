@@ -37,15 +37,15 @@ data class EpisodeResponse(
     }
 
     private fun getVideoUrlFromSeason(seasonEpisode: SeasonEpisode): String {
-        return when(seasonEpisode) {
-            SeasonEpisode.SEASON_1 -> "https://www.youtube.com/watch?v=BFTSrbB2wII"
-            SeasonEpisode.SEASON_2 -> "https://www.youtube.com/watch?v=_IZfO_LfK5Q"
-            SeasonEpisode.SEASON_3 -> "https://www.youtube.com/watch?v=rLyOul8kau0"
-            SeasonEpisode.SEASON_4 -> "https://www.youtube.com/watch?v=hl1U0bxTHbY"
-            SeasonEpisode.SEASON_5 -> "https://www.youtube.com/watch?v=qbHYYXj2gMc"
-            SeasonEpisode.SEASON_6 -> "https://www.youtube.com/watch?v=jerFRSQW9g8"
-            SeasonEpisode.SEASON_7 -> "https://www.youtube.com/watch?v=PkZtVBNkmso"
-            SeasonEpisode.UNKNOWN -> "https://www.youtube.com/watch?v=BFTSrbB2wII"
+        return when (seasonEpisode) {
+            SeasonEpisode.SEASON_1 -> "https://firebasestorage.googleapis.com/v0/b/rickmortykmp-b8c39.appspot.com/o/Rick%20and%20Morty%20Season%201%20extended%20promo.mp4?alt=media&token=336b6e7f-934b-4358-97b2-d19ec5332cec"
+            SeasonEpisode.SEASON_2 -> "https://firebasestorage.googleapis.com/v0/b/rickmortykmp-b8c39.appspot.com/o/Rick%20and%20Morty%20Season%201%20extended%20promo.mp4?alt=media&token=336b6e7f-934b-4358-97b2-d19ec5332cec"
+            SeasonEpisode.SEASON_3 -> "https://firebasestorage.googleapis.com/v0/b/rickmortykmp-b8c39.appspot.com/o/Rick%20and%20Morty%20Season%201%20extended%20promo.mp4?alt=media&token=336b6e7f-934b-4358-97b2-d19ec5332cec"
+            SeasonEpisode.SEASON_4 -> "https://firebasestorage.googleapis.com/v0/b/rickmortykmp-b8c39.appspot.com/o/Rick%20and%20Morty%20Season%201%20extended%20promo.mp4?alt=media&token=336b6e7f-934b-4358-97b2-d19ec5332cec"
+            SeasonEpisode.SEASON_5 -> "https://firebasestorage.googleapis.com/v0/b/rickmortykmp-b8c39.appspot.com/o/Rick%20and%20Morty%20Season%201%20extended%20promo.mp4?alt=media&token=336b6e7f-934b-4358-97b2-d19ec5332cec"
+            SeasonEpisode.SEASON_6 -> "https://firebasestorage.googleapis.com/v0/b/rickmortykmp-b8c39.appspot.com/o/Rick%20and%20Morty%20Season%201%20extended%20promo.mp4?alt=media&token=336b6e7f-934b-4358-97b2-d19ec5332cec"
+            SeasonEpisode.SEASON_7 -> "https://firebasestorage.googleapis.com/v0/b/rickmortykmp-b8c39.appspot.com/o/Rick%20and%20Morty%20Season%201%20extended%20promo.mp4?alt=media&token=336b6e7f-934b-4358-97b2-d19ec5332cec"
+            SeasonEpisode.UNKNOWN -> "https://firebasestorage.googleapis.com/v0/b/rickmortykmp-b8c39.appspot.com/o/Rick%20and%20Morty%20Season%201%20extended%20promo.mp4?alt=media&token=336b6e7f-934b-4358-97b2-d19ec5332cec"
         }
     }
 }
