@@ -42,6 +42,8 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+//            implementation(libs.koin.android)
+//            implementation(libs.koin.androidx.compose)
         }
         commonMain.dependencies {
             implementation(libs.voyager.navigator)
@@ -53,9 +55,14 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+//            api(libs.koin.core)
+//            implementation(libs.koin.compose)
+//            implementation(libs.koin.compose.viewmodel)
+//            implementation(libs.navigation.compose)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+            implementation(libs.oshi.core)
         }
     }
 }
@@ -92,6 +99,10 @@ android {
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
     }
+}
+dependencies {
+    implementation(libs.androidx.ui.android)
+    implementation(libs.androidx.ui.desktop)
 }
 
 compose.desktop {

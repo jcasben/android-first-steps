@@ -2,6 +2,7 @@ package com.jcasben.rickmortyapp.di
 
 import com.jcasben.rickmortyapp.data.RepositoryImpl
 import com.jcasben.rickmortyapp.data.remote.ApiService
+import com.jcasben.rickmortyapp.data.remote.paging.CharactersPagingSource
 import com.jcasben.rickmortyapp.domain.Repository
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.DefaultRequest
@@ -29,5 +30,6 @@ val dataModule = module {
         }
     }
     factoryOf(::ApiService)
-    factory <Repository> { RepositoryImpl(get()) }
+    factory <Repository> { RepositoryImpl(get(), get(), get()) }
+    factoryOf(::CharactersPagingSource)
 }
