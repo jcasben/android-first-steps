@@ -5,14 +5,12 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.GridItemSpan
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
@@ -31,11 +29,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.paging.LoadState
-import app.cash.paging.compose.LazyPagingItems
 import app.cash.paging.compose.collectAsLazyPagingItems
 import coil3.compose.AsyncImage
 import com.jcasben.rickmortyapp.domain.model.CharacterModel
+import com.jcasben.rickmortyapp.ui.core.components.LoadingIndicator
+import com.jcasben.rickmortyapp.ui.core.components.PagingType
+import com.jcasben.rickmortyapp.ui.core.components.PagingWrapper
 import com.jcasben.rickmortyapp.ui.core.ext.vertical
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
@@ -47,13 +46,38 @@ fun CharactersScreen() {
     val state by charactersViewModel.state.collectAsState()
     val characters = state.characters.collectAsLazyPagingItems()
 
-    CharactersGridList(characters, state.characterOfTheDay)
+    PagingWrapper(
+        modifier = Modifier.padding(horizontal = 16.dp),
+        pagingType = PagingType.VerticalGrid(
+            cells = 2,
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ),
+        pagingItems = characters,
+        initialView = { LoadingIndicator() },
+        emptyView = { },
+        header = {
+            Column {
+                Text(
+                    text = "Characters",
+                    color = Color.Green,
+                    fontSize = 30.sp,
+                    modifier = Modifier.padding(8.dp).fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
+                CharacterOfTheDay(state.characterOfTheDay)
+            }
+        },
+        extraItemsView = { LoadingIndicator() }
+    ) {
+        CharacterItemList(it)
+    }
 }
 
 @Composable
 fun CharacterOfTheDay(characterModel: CharacterModel? = null) {
     Card(
-        modifier = Modifier.fillMaxWidth().height(400.dp).padding(top = 16.dp),
+        modifier = Modifier.fillMaxWidth().height(400.dp).padding(bottom = 16.dp),
         shape = RoundedCornerShape(12)
     ) {
         if (characterModel == null) {
@@ -89,61 +113,6 @@ fun CharacterOfTheDay(characterModel: CharacterModel? = null) {
                     modifier = Modifier.padding(horizontal = 24.dp, vertical = 16.dp)
                         .fillMaxHeight().vertical().rotate(-90f)
                 )
-            }
-        }
-    }
-}
-
-@Composable
-fun CharactersGridList(
-    characters: LazyPagingItems<CharacterModel>,
-    characterOfTheDay: CharacterModel?
-) {
-    LazyVerticalGrid(
-        modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp),
-        columns = GridCells.Fixed(2),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        item(span = { GridItemSpan(2) }) {
-            CharacterOfTheDay(characterOfTheDay)
-        }
-
-        when {
-            // Initial Load
-            characters.loadState.refresh is LoadState.Loading && characters.itemCount == 0 -> {
-                item(span = { GridItemSpan(2) }) {
-                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        CircularProgressIndicator()
-                    }
-                }
-            }
-            // No results
-            characters.loadState.refresh is LoadState.NotLoading && characters.itemCount == 0 -> {
-                item(span = { GridItemSpan(2) }) {
-                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        Text(text = "No characters were found")
-                    }
-                }
-            }
-
-            else -> {
-                // Go through the items
-                items(characters.itemCount) { pos ->
-                    characters[pos]?.let { character ->
-                        CharacterItemList(character)
-                    }
-                }
-
-                if (characters.loadState.append is LoadState.Loading) {
-                    item(span = { GridItemSpan(2) }) {
-                        Box(
-                            modifier = Modifier.fillMaxWidth().height(100.dp), contentAlignment = Alignment.Center
-                        ) {
-                            CircularProgressIndicator()
-                        }
-                    }
-                }
             }
         }
     }
