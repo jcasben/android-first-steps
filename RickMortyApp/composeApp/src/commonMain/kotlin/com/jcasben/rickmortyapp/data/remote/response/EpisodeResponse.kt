@@ -17,7 +17,7 @@ data class EpisodeResponse(
             id = id,
             name = name,
             episode = episode,
-            characters = characters.map { url -> url.substringAfter("/") },
+            characters = characters.map { url -> url.substringAfterLast("/") },
             season = season,
             videoURL = getVideoUrlFromSeason(season)
         )

@@ -36,8 +36,11 @@ import com.jcasben.rickmortyapp.ui.core.components.LoadingIndicator
 import com.jcasben.rickmortyapp.ui.core.components.PagingType
 import com.jcasben.rickmortyapp.ui.core.components.PagingWrapper
 import com.jcasben.rickmortyapp.ui.core.ext.vertical
+import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
+import rickmortyapp.composeapp.generated.resources.Res
+import rickmortyapp.composeapp.generated.resources.rickface
 
 @OptIn(KoinExperimentalAPI::class)
 @Composable
@@ -139,7 +142,8 @@ fun CharacterItemList(character: CharacterModel, onCharacterSelected: (Character
             model = character.image,
             contentDescription = "character image",
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
+            placeholder = painterResource(Res.drawable.rickface)
         )
         Box(
             modifier = Modifier.fillMaxWidth().height(60.dp).background(

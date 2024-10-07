@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a749e1cc8e0b8243ac10ae15d3cc2c1f",
+    "identityHash": "e12974e552510550a74fb63c20021128",
     "entities": [
       {
         "tableName": "characteroftheday",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `isAlive` INTEGER NOT NULL, `image` TEXT NOT NULL, `name` TEXT NOT NULL, `selectedDate` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `isAlive` INTEGER NOT NULL, `image` TEXT NOT NULL, `name` TEXT NOT NULL, `selectedDate` TEXT NOT NULL, `species` TEXT NOT NULL, `gender` TEXT NOT NULL, `origin` TEXT NOT NULL, `episodes` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -37,6 +37,30 @@
             "columnName": "selectedDate",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "species",
+            "columnName": "species",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gender",
+            "columnName": "gender",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "origin",
+            "columnName": "origin",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "episodes",
+            "columnName": "episodes",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -49,7 +73,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a749e1cc8e0b8243ac10ae15d3cc2c1f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e12974e552510550a74fb63c20021128')"
     ]
   }
 }

@@ -47,4 +47,17 @@ class RepositoryImpl(
     override suspend fun saveCharacterDB(characterOfTheDayModel: CharacterOfTheDayModel) {
         rickMortyDatabase.getPreferencesDao().saveCharacter(characterOfTheDayModel.toEntity())
     }
+
+    override suspend fun getEpisodesForCharacter(episodes: List<String>): List<EpisodeModel> {
+
+        if (episodes.isEmpty()) return emptyList()
+
+        return if (episodes.size > 1) {
+             api.getEpisodes(episodes.joinToString(",")).map { episodeResponse ->
+                episodeResponse.toDomain()
+            }
+        } else {
+            listOf(api.getSingleEpisode(episodes.first()).toDomain())
+        }
+    }
 }
