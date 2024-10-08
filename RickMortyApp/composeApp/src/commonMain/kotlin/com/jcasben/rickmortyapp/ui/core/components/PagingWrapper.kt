@@ -66,6 +66,7 @@ fun <T : Any> PagingWrapper(
                         modifier = modifier,
                         verticalArrangement = pagingType.verticalArrangement
                     ) {
+                        item { Spacer(Modifier.size(8.dp)) }
                         items(pagingItems.itemCount) { pos ->
                             pagingItems[pos]?.let { item ->
                                 itemView(item)
@@ -82,6 +83,7 @@ fun <T : Any> PagingWrapper(
                         verticalArrangement = pagingType.verticalArrangement,
                         horizontalArrangement = pagingType.horizontalArrangement
                     ) {
+                        item { Spacer(Modifier.size(8.dp)) }
                         items(pagingItems.itemCount) { pos ->
                             pagingItems[pos]?.let { item ->
                                 itemView(item)
@@ -96,6 +98,7 @@ fun <T : Any> PagingWrapper(
                         modifier = modifier,
                         horizontalArrangement = pagingType.horizontalArrangement
                     ) {
+                        item { Spacer(Modifier.size(8.dp)) }
                         items(pagingItems.itemCount) { pos ->
                             pagingItems[pos]?.let { item ->
                                 itemView(item)

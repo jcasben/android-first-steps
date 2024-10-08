@@ -20,6 +20,10 @@ val DefaultTextColor
     @Composable
     get() = if (isSystemInDarkTheme()) Color.White else Color.Black
 
+val Placeholder
+    @Composable
+    get() = if (isSystemInDarkTheme()) tertiaryBlack else secondaryWhite
+
 val Pink = Color(0xFFFF577D)
 val Green = Color(0xFF5CCF92)
 

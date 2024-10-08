@@ -25,6 +25,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -32,6 +33,9 @@ import androidx.compose.ui.unit.sp
 import app.cash.paging.compose.collectAsLazyPagingItems
 import coil3.compose.AsyncImage
 import com.jcasben.rickmortyapp.domain.model.CharacterModel
+import com.jcasben.rickmortyapp.ui.core.BackgroundPrimaryColor
+import com.jcasben.rickmortyapp.ui.core.DefaultTextColor
+import com.jcasben.rickmortyapp.ui.core.Green
 import com.jcasben.rickmortyapp.ui.core.components.LoadingIndicator
 import com.jcasben.rickmortyapp.ui.core.components.PagingType
 import com.jcasben.rickmortyapp.ui.core.components.PagingWrapper
@@ -50,7 +54,7 @@ fun CharactersScreen(navigateToDetail: (CharacterModel) -> Unit) {
     val characters = state.characters.collectAsLazyPagingItems()
 
     PagingWrapper(
-        modifier = Modifier.padding(horizontal = 16.dp),
+        modifier = Modifier.background(BackgroundPrimaryColor).padding(horizontal = 16.dp),
         pagingType = PagingType.VerticalGrid(
             cells = 2,
             verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -63,8 +67,9 @@ fun CharactersScreen(navigateToDetail: (CharacterModel) -> Unit) {
             Column {
                 Text(
                     text = "Characters",
-                    color = Color.Green,
+                    color = DefaultTextColor,
                     fontSize = 30.sp,
+                    fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(8.dp).fillMaxWidth(),
                     textAlign = TextAlign.Center
                 )
@@ -89,7 +94,7 @@ fun CharacterOfTheDay(characterModel: CharacterModel? = null) {
             Box(
                 modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
             ) {
-                CircularProgressIndicator()
+                CircularProgressIndicator(color = Green)
             }
         } else {
             Box(contentAlignment = Alignment.BottomStart) {
@@ -130,7 +135,7 @@ fun CharacterItemList(character: CharacterModel, onCharacterSelected: (Character
             .clip(RoundedCornerShape(24))
             .border(
                 2.dp,
-                Color.Green,
+                Green,
                 shape = RoundedCornerShape(0, 24, 0, 24)
             )
             .fillMaxWidth()

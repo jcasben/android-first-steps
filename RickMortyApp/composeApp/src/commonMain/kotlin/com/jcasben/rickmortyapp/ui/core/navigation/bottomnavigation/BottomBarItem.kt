@@ -1,11 +1,18 @@
 package com.jcasben.rickmortyapp.ui.core.navigation.bottomnavigation
 
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.jcasben.rickmortyapp.ui.core.navigation.Routes
+import org.jetbrains.compose.resources.painterResource
+import rickmortyapp.composeapp.generated.resources.Res
+import rickmortyapp.composeapp.generated.resources.ic_characters
+import rickmortyapp.composeapp.generated.resources.ic_player
 
 sealed class BottomBarItem {
     abstract val route: String
@@ -17,8 +24,9 @@ sealed class BottomBarItem {
         override val title: String = "Episodes",
         override val icon: @Composable () -> Unit = {
             Icon(
-                imageVector = Icons.Default.Home,
-                contentDescription = "home tab"
+                painter = painterResource(Res.drawable.ic_player),
+                contentDescription = "home tab",
+                modifier = Modifier.size(24.dp)
             )
         }
     ) : BottomBarItem()
@@ -28,8 +36,9 @@ sealed class BottomBarItem {
         override val title: String = "Characters",
         override val icon: @Composable () -> Unit = {
             Icon(
-                imageVector = Icons.Default.Person,
-                contentDescription = "characters tab"
+                painter = painterResource(Res.drawable.ic_characters),
+                contentDescription = "characters tab",
+                modifier = Modifier.size(24.dp)
             )
         }
     ) : BottomBarItem()
