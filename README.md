@@ -17,11 +17,24 @@ There are projects using:
 - Firebase
 - Kotlin Multiplatform / Compose Multiplatform
 
-
 ## Projects
 
 ### HoroscApp
 
 ### RickMortyApp
+
+A Master-Detail project that shows the chapters and info about the characters of the Rick and Morty series.
+
+- Implemented a custom video player component that plays video given an URL.
+- Created a generic class that provides easy fetching of data for APIs with paging.
+- Highlighted character that changes daily.
+
+#### Implemented with:
+
+- Kotlin Multiplatform / Compose Multiplatform
+- Koin
+- Room
+- KtorClient
+- Coil
 
 ### TaskDo
