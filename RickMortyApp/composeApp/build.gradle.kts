@@ -23,6 +23,8 @@ kotlin {
         }
     }
 
+    jvm("desktop")
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -35,6 +37,8 @@ kotlin {
     }
 
     sourceSets {
+        val desktopMain by getting
+
         task("testClasses")
         androidMain.dependencies {
             implementation(compose.preview)
@@ -78,6 +82,9 @@ kotlin {
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
+        }
+        desktopMain.dependencies {
+            implementation(compose.desktop.currentOs)
         }
     }
 }
@@ -132,6 +139,17 @@ dependencies {
             "kspIosArm64"
         ).forEach {
             add(it, libs.room.compiler)
+        }
+    }
+}
+
+compose.desktop {
+    application {
+        mainClass = "com.jcasben.rickmortyapp.MainKt"
+        nativeDistributions {
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            packageName = "com.jcasben.rickmortyapp"
+            version = "1.0.0"
         }
     }
 }
